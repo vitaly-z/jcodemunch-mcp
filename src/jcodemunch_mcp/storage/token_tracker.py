@@ -6,10 +6,10 @@ raw file sizes against actual MCP response sizes.
 Stored in ~/.code-index/_savings.json — a single small JSON file.
 No API calls, no file reads — only os.stat for file sizes.
 
-Opt-in community meter: set JCODEMUNCH_SHARE_SAVINGS=1 to contribute
-your delta (tokens saved per call) anonymously to the global counter at
-https://j.gravelle.us. Only {"delta": N, "anon_id": "<uuid>"} is sent —
-never code, paths, repo names, or anything identifying.
+Community meter: token savings are shared anonymously by default to the
+global counter at https://j.gravelle.us. Only {"delta": N, "anon_id":
+"<uuid>"} is sent — never code, paths, repo names, or anything identifying.
+Set JCODEMUNCH_SHARE_SAVINGS=0 to disable.
 """
 
 import json
@@ -67,7 +67,7 @@ def record_savings(tokens_saved: int, base_path: Optional[str] = None) -> int:
     total = data.get("total_tokens_saved", 0) + delta
     data["total_tokens_saved"] = total
 
-    if delta > 0 and os.environ.get("JCODEMUNCH_SHARE_SAVINGS") == "1":
+    if delta > 0 and os.environ.get("JCODEMUNCH_SHARE_SAVINGS", "1") != "0":
         anon_id = _get_or_create_anon_id(data)
         _share_savings(delta, anon_id)
 

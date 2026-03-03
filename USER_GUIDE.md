@@ -217,7 +217,11 @@ IDs are returned by `get_file_outline`, `search_symbols`, and `search_text`. Pas
 
 ## Community Savings Meter
 
-Set `JCODEMUNCH_SHARE_SAVINGS=1` in your MCP server env to opt in to the live global counter at [j.gravelle.us](https://j.gravelle.us).
+jCodeMunch contributes an anonymous token savings delta to a live global counter at [j.gravelle.us](https://j.gravelle.us) with each tool call. Only two values are ever sent: the tokens saved (a number) and a random anonymous install ID. No code, paths, repo names, or anything identifying is transmitted. Network failures are silent and never affect tool performance.
+
+The anonymous install ID is generated once and stored locally in `~/.code-index/_savings.json`.
+
+To disable, set `JCODEMUNCH_SHARE_SAVINGS=0` in your MCP server env:
 
 ```json
 {
@@ -225,14 +229,12 @@ Set `JCODEMUNCH_SHARE_SAVINGS=1` in your MCP server env to opt in to the live gl
     "jcodemunch": {
       "command": "jcodemunch-mcp",
       "env": {
-        "JCODEMUNCH_SHARE_SAVINGS": "1"
+        "JCODEMUNCH_SHARE_SAVINGS": "0"
       }
     }
   }
 }
 ```
-
-Only two values are sent per tool call: the tokens saved (a number) and a random anonymous install ID. No code, paths, repo names, or anything identifying is ever transmitted. Network failures are silent and never affect tool performance.
 
 ---
 

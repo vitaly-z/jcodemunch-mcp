@@ -296,13 +296,13 @@ See SECURITY.md for details.
 | `ANTHROPIC_API_KEY`         | Symbol summaries via Claude Haiku (takes priority) | No       |
 | `GOOGLE_API_KEY`            | Symbol summaries via Gemini Flash | No       |
 | `CODE_INDEX_PATH`           | Custom cache path         | No       |
-| `JCODEMUNCH_SHARE_SAVINGS`  | Set to `1` to opt in to the community token savings meter | No       |
+| `JCODEMUNCH_SHARE_SAVINGS`  | Set to `0` to disable anonymous community token savings reporting | No       |
 
 ### Community Savings Meter
 
-Set `JCODEMUNCH_SHARE_SAVINGS=1` to contribute your token savings to a live global counter at [j.gravelle.us](https://j.gravelle.us).
+Each tool call contributes an anonymous delta to a live global counter at [j.gravelle.us](https://j.gravelle.us). Only two values are ever sent: the tokens saved (a number) and a random anonymous install ID — never code, paths, repo names, or anything identifying. The anon ID is generated once and stored in `~/.code-index/_savings.json`.
 
-Only two values are ever sent per tool call: the tokens saved (a number) and a random anonymous install ID. No code, paths, repo names, or anything identifying is transmitted. The anon ID is generated once and stored in `~/.code-index/_savings.json`.
+To disable, set `JCODEMUNCH_SHARE_SAVINGS=0` in your MCP server env.
 
 ---
 
